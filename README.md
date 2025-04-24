@@ -1,0 +1,97 @@
+# @variablesoftware/mock-kv
+
+[![Test Suite](https://img.shields.io/badge/tests-passing-brightgreen)](https://github.com/variablesoftware/mock-kv/actions)
+
+**Mock Cloudflare KV Namespace for unit and integration testing**
+
+`@variablesoftware/mock-kv` provides an in-memory simulation of Cloudflare Workers KV. It is designed for testing key-value storage logic with expiration, metadata, and batch operations — without any external dependencies.
+
+---
+
+## 🔧 Installation
+
+```bash
+yarn add --dev @variablesoftware/mock-kv
+```
+
+> This package assumes a test environment with [Vitest](https://vitest.dev/) and support for ESM.
+
+---
+
+## 🚀 Usage
+
+```ts
+import { mockKVNamespace } from '@variablesoftware/mock-kv';
+
+const kv = mockKVNamespace();
+await kv.put('token-abc', 'value', { expirationTtl: 60 });
+
+const result = await kv.get('token-abc');
+console.log(result); // 'value'
+```
+
+---
+
+## 🎯 Goals
+
+- ⚙ Match Cloudflare KV behavior closely for testing
+- 🧪 Support test-safe mocking of put/get/delete/list flows
+- 📦 No external storage dependencies; uses only in-memory JS objects
+- 📎 Logging via `@variablesoftware/logface` is required for test and runtime logging, but does not rely on any external services
+
+## ✨ Features
+
+Includes matching behavior for edge cases like:
+- Key expiration mid-test
+- `list()` with prefix collisions and limits
+- Metadata preservation across put/get calls
+
+- In-memory mock of Cloudflare `KVNamespace`
+- Supports `put`, `get`, `delete`, `list`, and metadata options
+- TTL-aware: honors `expirationTtl` and `expiration`
+- Returns values as `string`, `ArrayBuffer`, or `null` just like real KV
+- Simulates listing behavior including prefix + limit
+- Supports metadata in `put()` and `getWithMetadata()`
+- Compatible with Vitest and any Cloudflare Worker test setup
+- Logs via `@variablesoftware/logface`
+- Optional `.dump()` method for inspecting KV state during tests
+
+---
+
+## 🧪 Test Coverage
+
+Tested using `vitest run`, with coverage for:
+- `put()` with TTL and metadata
+- `get()` and `getWithMetadata()` matching real behavior
+- `delete()` and `list()` consistency
+- Full `.dump()` snapshots for inspection and debugging
+
+Run tests:
+```bash
+yarn test
+```
+
+---
+
+## 🚧 Status
+
+**This package is under active development and not yet stable.**
+
+Once stable, it will be published as:
+```json
+"@variablesoftware/mock-kv": "^0.1.0"
+```
+
+## 📄 License
+
+MIT © Rob Friedman / Variable Software
+
+---
+
+## 🌐 Inclusive & Accessible Design
+
+- Avoids assumptions about key/value formats or encodings
+- Does not coerce types — returned values reflect stored data
+- Designed for parity with Cloudflare KV, not a new abstraction layer
+- Naming, logs, and tests avoid culturally biased or ableist terminology
+- Works well for inclusive test design and multilingual scenarios
