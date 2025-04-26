@@ -1,4 +1,5 @@
 // tests/helpers/mockKVNamespace.ts
+import type { MockKVNamespace } from "./types/MockKVNamespace";
 
 import { log } from "@variablesoftware/logface";
 /**
@@ -53,7 +54,7 @@ export const mockKVNamespace = (data: KVMap = {}) => {
     Object.keys(data).length,
   );
 
-  const kv: KVNamespace & {
+  const kv: MockKVNamespace & {
     dump: () => Record<string, KVEntry>;
     list: (opts?: {
       limit?: number;

@@ -1,6 +1,6 @@
 {
     "name": "@variablesoftware/mock-kv",
-    "version": "0.0.0",
+    "version": "0.0.1",
     "description": "🎛️🏷️✨ Mock KV Namespace for testing Cloudflare Workers",
     "keywords": [
         "cloudflare",
@@ -56,6 +56,7 @@
     },
     "license": "MIT",
     "devDependencies": {
+        "@cloudflare/workers-types": "^4.20250426.0",
         "@eslint/js": "^9.25.1",
         "@types/node": "^22.14.1",
         "@typescript-eslint/eslint-plugin": "^8.31.0",

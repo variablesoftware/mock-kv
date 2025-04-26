@@ -80,14 +80,14 @@ describe("mockKVNamespace()", () => {
     const kv = mockKVNamespace();
     const obj = { foo: "bar", count: 5 };
     await kv.put("json", JSON.stringify(obj));
-    const result = await kv.get("json", { type: "json" });
+    const result = await kv.get("json");
     expect(result).toEqual(obj);
   });
 
   it("should handle invalid JSON parsing gracefully", async () => {
     const kv = mockKVNamespace();
     await kv.put("bad-json", "not-valid-json");
-    const result = await kv.get("bad-json", { type: "json" });
+    const result = await kv.get("bad-json");
     expect(result).toBeNull();
   });
 
