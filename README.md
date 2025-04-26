@@ -1,10 +1,10 @@
-# @variablesoftware/mock-kv
+# @variablesoftware/mock-kv 🎛️🏷️✨
 
 [![Test Suite](https://img.shields.io/badge/tests-passing-brightgreen)](https://github.com/variablesoftware/mock-kv/actions)
 
 **Mock Cloudflare KV Namespace for unit and integration testing**
 
-`@variablesoftware/mock-kv` provides an in-memory simulation of Cloudflare Workers KV. It is designed for testing key-value storage logic with expiration, metadata, and batch operations — without any external dependencies.
+🎛️🏷️✨ `@variablesoftware/mock-kv` provides an in-memory simulation of Cloudflare Workers KV. It is designed for testing key-value storage logic with expiration, metadata, and batch operations — without any external dependencies.
 
 ---
 
@@ -82,16 +82,25 @@ Once stable, it will be published as:
 "@variablesoftware/mock-kv": "^0.1.0"
 ```
 
+---
+
 ## 📄 License
 
 MIT © Rob Friedman / Variable Software
 
 ---
 
+> Built with ❤️ by [@variablesoftware](https://github.com/variablesoftware)  
+> Thank you for downloading and using this project. Pull requests are warmly welcomed!
+
+---
+
 ## 🌐 Inclusive & Accessible Design
 
-- Avoids assumptions about key/value formats or encodings
-- Does not coerce types — returned values reflect stored data
-- Designed for parity with Cloudflare KV, not a new abstraction layer
-- Naming, logs, and tests avoid culturally biased or ableist terminology
-- Works well for inclusive test design and multilingual scenarios
+- Naming, logging, error messages, and tests avoid cultural or ableist bias
+- Avoids assumptions about input/output formats or encodings
+- Faithfully reflects user data — no coercion or silent transformations
+- Designed for clarity, predictability, and parity with underlying platforms (e.g., Cloudflare APIs)
+- Works well in diverse, multilingual, and inclusive developer environments
+
+---
