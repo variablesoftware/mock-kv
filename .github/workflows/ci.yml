@@ -29,6 +29,9 @@ jobs:
       - name: Ensure correct Yarn version
         run: corepack prepare yarn@4.9.1 --activate
         
+      - name: Set Yarn version explicitly
+        run: yarn set version 4.9.1
+
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
