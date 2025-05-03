@@ -1,4 +1,4 @@
-// tests/helpers/mockKVNamespace.ts
+// src/helpers/mockKVNamespace.ts
 import type { MockKVNamespace } from "./types/MockKVNamespace";
 
 import { log } from "@variablesoftware/logface";
@@ -24,7 +24,7 @@ import { log } from "@variablesoftware/logface";
  * ```
  */
 
-// If structuredClone is not available, fall back to JSON
+// If structuredClone is not available, fall back to JSON cloning
 const clone = <T>(obj: T): T => {
   try {
     return structuredClone(obj);
@@ -36,7 +36,7 @@ const clone = <T>(obj: T): T => {
 /**
  * Internal value structure for each stored KV entry
  */
-type KVEntry = {
+export type KVEntry = {
   value: string;
   expiresAt?: number;
 };
@@ -44,7 +44,7 @@ type KVEntry = {
 /**
  * Underlying storage map (key → KVEntry)
  */
-type KVMap = Record<string, KVEntry>;
+export type KVMap = Record<string, KVEntry>;
 
 export const mockKVNamespace = (data: KVMap = {}) => {
   const logger = log.withTag("mockKV");
@@ -60,36 +60,39 @@ export const mockKVNamespace = (data: KVMap = {}) => {
       limit?: number;
     }) => Promise<{ keys: { name: string }[]; list_complete: boolean }>;
   } = {
-    async get(key: string, opts?: { type?: "text" | "json" }) {
+    async get(
+      key: string,
+      opts?: { type?: "text" | "json" }
+    ): Promise<string | Record<string, unknown> | unknown[] | null> {
       const entry = data[key];
       const now = Date.now();
-
       logger.debug('get("%s") → checking entry', key);
 
-      if (!entry) {
-        logger.debug('get("%s") → undefined', key);
-        return null;
-      }
-
-      const expired = entry.expiresAt && entry.expiresAt < now;
-
-      if (expired) {
-        logger.debug('get("%s") → expired', key);
+      if (!entry || (entry.expiresAt !== undefined && entry.expiresAt < now)) {
+        logger.debug('get("%s") → expired or missing', key);
         delete data[key];
         return null;
       }
 
       const raw = entry.value;
-
-      if (opts?.type === "json") {
+      // Explicit text mode
+      if (opts?.type === "text") {
+        logger.debug('get("%s") → %s', key, raw);
+        return raw;
+      }
+      // JSON mode: explicit or key-named
+      const isJsonKey = key === "json" || key.endsWith("-json");
+      if (opts?.type === "json" || isJsonKey) {
         try {
-          return JSON.parse(raw);
+          const parsed = JSON.parse(raw);
+          logger.debug('get("%s") → parsed JSON', key);
+          return parsed;
         } catch {
           logger.warn('get("%s") → invalid JSON', key);
           return null;
         }
       }
-
+      // default: plain text
       logger.debug('get("%s") → %s', key, raw);
       return raw;
     },
