@@ -2,6 +2,7 @@
 import type { MockKVNamespace, KVEntry, KVMap } from "./types/MockKVNamespace";
 import { log } from "@variablesoftware/logface";
 import { clone } from "./utils/clone";
+import { listHandler } from "./mockKVNamepsace/methods/list";
 
 /**
  * mockKVNamespace()
@@ -108,14 +109,7 @@ export const mockKVNamespace = (data: KVMap = {}): MockKVNamespace & {
       logger.debug('delete("%s") → existed: %s', key, existed);
     },
 
-    async list(_opts?: { limit?: number }) {
-      const limit = _opts?.limit ?? Infinity;
-      const keys = Object.keys(data)
-        .slice(0, limit)
-        .map((key) => ({ name: key }));
-      logger.debug("list() → returning %d key(s)", keys.length);
-      return { keys, list_complete: true };
-    },
+    list: listHandler(data, logger),
 
     dump() {
       logger.debug("dump() → %d keys", Object.keys(data).length);
