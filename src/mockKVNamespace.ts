@@ -1,8 +1,8 @@
 // src/helpers/mockKVNamespace.ts
-import { structuredClone } from 'node:util';
-import type { MockKVNamespace } from "./types/MockKVNamespace";
-
+import type { MockKVNamespace, KVEntry, KVMap } from "./types/MockKVNamespace";
 import { log } from "@variablesoftware/logface";
+import { clone } from "./utils/clone";
+
 /**
  * mockKVNamespace()
  *
@@ -25,32 +25,10 @@ import { log } from "@variablesoftware/logface";
  * ```
  */
 
-// If structuredClone is not available, fall back to JSON cloning
-const clone = <T>(obj: T): T => {
-  try {
-    // @ts-expect-error: structuredClone may not be available in all environments
-    return typeof structuredClone === "function"
-      ? structuredClone(obj)
-      : JSON.parse(JSON.stringify(obj));
-  } catch {
-    return JSON.parse(JSON.stringify(obj));
-  }
-};
-
-/**
- * Internal value structure for each stored KV entry
- */
-export type KVEntry = {
-  value: string;
-  expiresAt?: number;
-};
-
-/**
- * Underlying storage map (key → KVEntry)
- */
-export type KVMap = Record<string, KVEntry>;
-
-export const mockKVNamespace = (data: KVMap = {}) => {
+export const mockKVNamespace = (data: KVMap = {}): MockKVNamespace & {
+  dump: () => Record<string, KVEntry>;
+  list: (_opts?: { limit?: number }) => Promise<{ keys: { name: string }[]; list_complete: boolean }>;
+} => {
   const logger = log.withTag("mockKV");
 
   logger.info(

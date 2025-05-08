@@ -15,3 +15,17 @@ export type MockKVNamespace = {
   list: (_options?: { prefix?: string; limit?: number }) => Promise<{ keys: { name: string }[]; list_complete: boolean }>;
   dump: () => Record<string, KVStoredValue>;
 };
+
+
+/**
+ * Internal value structure for each stored KV entry
+ */
+export type KVEntry = {
+  value: string;
+  expiresAt?: number;
+};
+
+/**
+ * Underlying storage map (key → KVEntry)
+ */
+export type KVMap = Record<string, KVEntry>;
