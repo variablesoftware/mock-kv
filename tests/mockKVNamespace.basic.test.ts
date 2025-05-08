@@ -1,46 +1,54 @@
 import { describe, it, expect, vi } from "vitest";
 import { mockKVNamespace } from "../src/mockKVNamespace";
+import { randomSnakeCaseKey, randomBase64Value } from "./testUtils";
 
 describe("mockKVNamespace basic", () => {
   it("should store and retrieve values via put/get", async () => {
     const kv = mockKVNamespace();
-    await kv.put("test-key", "test-value");
-    const value = await kv.get("test-key");
-    expect(value).toBe("test-value");
+    const key = randomSnakeCaseKey();
+    const value = randomBase64Value();
+    await kv.put(key, value);
+    expect(await kv.get(key)).toBe(value);
   });
 
   it("should return null for unknown keys", async () => {
     const kv = mockKVNamespace();
-    const value = await kv.get("missing-key");
-    expect(value).toBeNull();
+    const key = randomSnakeCaseKey();
+    expect(await kv.get(key)).toBeNull();
   });
 
   it("should delete values properly", async () => {
     const kv = mockKVNamespace();
-    await kv.put("temp", "value");
-    await kv.delete("temp");
-    const value = await kv.get("temp");
-    expect(value).toBeNull();
+    const key = randomSnakeCaseKey();
+    const value = randomBase64Value();
+    await kv.put(key, value);
+    await kv.delete(key);
+    expect(await kv.get(key)).toBeNull();
   });
 
   it("should overwrite values", async () => {
     const kv = mockKVNamespace();
-    await kv.put("dup", "one");
-    await kv.put("dup", "two");
-    expect(await kv.get("dup")).toBe("two");
+    const key = randomSnakeCaseKey();
+    const value1 = randomBase64Value();
+    const value2 = randomBase64Value();
+    await kv.put(key, value1);
+    await kv.put(key, value2);
+    expect(await kv.get(key)).toBe(value2);
   });
 
   it("should list all keys", async () => {
     const kv = mockKVNamespace();
-    await kv.put("a", "1");
-    await kv.put("b", "2");
+    const keyA = randomSnakeCaseKey();
+    const keyB = randomSnakeCaseKey();
+    await kv.put(keyA, randomBase64Value());
+    await kv.put(keyB, randomBase64Value());
 
     const { keys, list_complete } = await kv.list();
     const names = keys.map((k) => k.name);
 
     expect(list_complete).toBe(true);
-    expect(names).toContain("a");
-    expect(names).toContain("b");
+    expect(names).toContain(keyA);
+    expect(names).toContain(keyB);
   });
 
   it("should track calls with vi.fn()", async () => {
@@ -51,14 +59,17 @@ describe("mockKVNamespace basic", () => {
     kv.delete = vi.fn(kv.delete);
     kv.list = vi.fn(kv.list);
 
-    await kv.put("x", "1");
-    await kv.get("x");
-    await kv.delete("x");
+    const key = randomSnakeCaseKey();
+    const value = randomBase64Value();
+
+    await kv.put(key, value);
+    await kv.get(key);
+    await kv.delete(key);
     await kv.list();
 
-    expect(kv.put).toHaveBeenCalledWith("x", "1");
-    expect(kv.get).toHaveBeenCalledWith("x");
-    expect(kv.delete).toHaveBeenCalledWith("x");
+    expect(kv.put).toHaveBeenCalledWith(key, value);
+    expect(kv.get).toHaveBeenCalledWith(key);
+    expect(kv.delete).toHaveBeenCalledWith(key);
     expect(kv.list).toHaveBeenCalled();
   });
 });
