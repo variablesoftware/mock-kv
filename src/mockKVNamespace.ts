@@ -1,4 +1,5 @@
 // src/helpers/mockKVNamespace.ts
+import { structuredClone } from 'node:util';
 import type { MockKVNamespace } from "./types/MockKVNamespace";
 
 import { log } from "@variablesoftware/logface";
@@ -27,7 +28,10 @@ import { log } from "@variablesoftware/logface";
 // If structuredClone is not available, fall back to JSON cloning
 const clone = <T>(obj: T): T => {
   try {
-    return structuredClone(obj);
+    // @ts-expect-error: structuredClone may not be available in all environments
+    return typeof structuredClone === "function"
+      ? structuredClone(obj)
+      : JSON.parse(JSON.stringify(obj));
   } catch {
     return JSON.parse(JSON.stringify(obj));
   }
@@ -56,7 +60,7 @@ export const mockKVNamespace = (data: KVMap = {}) => {
 
   const kv: MockKVNamespace & {
     dump: () => Record<string, KVEntry>;
-    list: (opts?: {
+    list: (_opts?: {
       limit?: number;
     }) => Promise<{ keys: { name: string }[]; list_complete: boolean }>;
   } = {
@@ -126,8 +130,8 @@ export const mockKVNamespace = (data: KVMap = {}) => {
       logger.debug('delete("%s") → existed: %s', key, existed);
     },
 
-    async list(opts?: { limit?: number }) {
-      const limit = opts?.limit ?? Infinity;
+    async list(_opts?: { limit?: number }) {
+      const limit = _opts?.limit ?? Infinity;
       const keys = Object.keys(data)
         .slice(0, limit)
         .map((key) => ({ name: key }));

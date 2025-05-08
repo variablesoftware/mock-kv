@@ -12,6 +12,6 @@
       "declarationDir": "./dist",
       "types": ["vitest","@cloudflare/workers-types"]
     },
-    "include": ["src", "tests"]
+    "include": ["src"]
   }
   

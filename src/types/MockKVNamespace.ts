@@ -1,17 +1,17 @@
 // src/types/MockKVNamespace.ts
 export type KVStoredValue = {
   value: string;
-  metadata?: any;
+  metadata?: unknown;
   expiration?: number;
 };
 
 export type MockKVNamespace = {
-  put: (key: string, value: string, options?: { expirationTtl?: number; expiration?: number; metadata?: any }) => Promise<void>;
+  put: (_key: string, _value: string, _options?: { expirationTtl?: number; expiration?: number; metadata?: unknown }) => Promise<void>;
   get: (
-    key: string,
-    opts?: { type?: "text" | "json" }
-  ) => Promise<string | Record<string, unknown> | unknown[] | null>; // NOTE: no KVNamespaceGetOptions etc
-  delete: (key: string) => Promise<void>;
-  list: (options?: { prefix?: string; limit?: number }) => Promise<{ keys: { name: string }[]; list_complete: boolean }>;
+    _key: string,
+    _opts?: { type?: "text" | "json" }
+  ) => Promise<string | Record<string, unknown> | unknown[] | null>;
+  delete: (_key: string) => Promise<void>;
+  list: (_options?: { prefix?: string; limit?: number }) => Promise<{ keys: { name: string }[]; list_complete: boolean }>;
   dump: () => Record<string, KVStoredValue>;
 };
