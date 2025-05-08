@@ -1,8 +1,22 @@
+/**
+ * Metadata tests for the mockKVNamespace implementation.
+ *
+ * These tests cover:
+ * - Storing and retrieving metadata with values
+ * - Updating metadata for a key
+ * - Removing metadata when a key is deleted
+ */
+
 import { describe, it, expect } from "vitest";
 import { mockKVNamespace } from "../src/mockKVNamespace";
 import { randomSnakeCaseKey, randomBase64Value } from "./testUtils";
 
+process.env.LOG = 'none' || process.env.LOG;
+
 describe("mockKVNamespace metadata", () => {
+  /**
+   * Should store and retrieve metadata with a value.
+   */
   it("should store and retrieve metadata with a value", async () => {
     const kv = mockKVNamespace();
     const key = randomSnakeCaseKey();
@@ -18,6 +32,9 @@ describe("mockKVNamespace metadata", () => {
     // expect(metadata).toEqual(meta);
   });
 
+  /**
+   * Should update metadata for a key.
+   */
   it("should update metadata for a key", async () => {
     const kv = mockKVNamespace();
     const key = randomSnakeCaseKey();
@@ -27,6 +44,9 @@ describe("mockKVNamespace metadata", () => {
     // expect(metadata).toEqual({ b: 2 });
   });
 
+  /**
+   * Should remove metadata when key is deleted.
+   */
   it("should remove metadata when key is deleted", async () => {
     const kv = mockKVNamespace();
     const key = randomSnakeCaseKey();

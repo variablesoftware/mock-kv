@@ -1,3 +1,8 @@
+/**
+ * Deep clones an object using structuredClone if available, otherwise falls back to JSON.
+ * @param obj - The object to clone.
+ * @returns A deep copy of the object.
+ */
 declare const structuredClone: (<T>(_obj: T) => T) | undefined;
 
 export function clone<T>(obj: T): T {

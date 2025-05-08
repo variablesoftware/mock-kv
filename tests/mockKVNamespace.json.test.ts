@@ -1,8 +1,21 @@
+/**
+ * JSON parsing tests for the mockKVNamespace implementation.
+ *
+ * These tests cover:
+ * - Retrieving and parsing stored JSON values
+ * - Handling invalid JSON gracefully
+ */
+
 import { describe, it, expect } from "vitest";
 import { mockKVNamespace } from "../src/mockKVNamespace";
 import { randomSnakeCaseKey, randomBase64Value } from "./testUtils";
 
+process.env.LOG = 'none' || process.env.LOG;
+
 describe("mockKVNamespace JSON", () => {
+  /**
+   * Should parse stored JSON when type is "json".
+   */
   it('should parse stored JSON when type is "json"', async () => {
     const kv = mockKVNamespace();
     const key = randomSnakeCaseKey();
@@ -12,6 +25,9 @@ describe("mockKVNamespace JSON", () => {
     expect(result).toEqual(obj);
   });
 
+  /**
+   * Should handle invalid JSON parsing gracefully.
+   */
   it("should handle invalid JSON parsing gracefully", async () => {
     const kv = mockKVNamespace();
     const key = randomSnakeCaseKey();

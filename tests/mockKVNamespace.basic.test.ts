@@ -1,8 +1,25 @@
+/**
+ * Basic CRUD and utility tests for the mockKVNamespace implementation.
+ *
+ * These tests cover:
+ * - Storing and retrieving values
+ * - Handling unknown keys
+ * - Deleting values
+ * - Overwriting values
+ * - Listing all keys
+ * - Tracking method calls with vi.fn()
+ */
+
 import { describe, it, expect, vi } from "vitest";
 import { mockKVNamespace } from "../src/mockKVNamespace";
 import { randomSnakeCaseKey, randomBase64Value } from "./testUtils";
 
+process.env.LOG = 'none' || process.env.LOG;
+
 describe("mockKVNamespace basic", () => {
+  /**
+   * Should store and retrieve values via put/get.
+   */
   it("should store and retrieve values via put/get", async () => {
     const kv = mockKVNamespace();
     const key = randomSnakeCaseKey();
@@ -11,12 +28,18 @@ describe("mockKVNamespace basic", () => {
     expect(await kv.get(key)).toBe(value);
   });
 
+  /**
+   * Should return null for unknown keys.
+   */
   it("should return null for unknown keys", async () => {
     const kv = mockKVNamespace();
     const key = randomSnakeCaseKey();
     expect(await kv.get(key)).toBeNull();
   });
 
+  /**
+   * Should delete values properly.
+   */
   it("should delete values properly", async () => {
     const kv = mockKVNamespace();
     const key = randomSnakeCaseKey();
@@ -26,6 +49,9 @@ describe("mockKVNamespace basic", () => {
     expect(await kv.get(key)).toBeNull();
   });
 
+  /**
+   * Should overwrite values.
+   */
   it("should overwrite values", async () => {
     const kv = mockKVNamespace();
     const key = randomSnakeCaseKey();
@@ -36,6 +62,9 @@ describe("mockKVNamespace basic", () => {
     expect(await kv.get(key)).toBe(value2);
   });
 
+  /**
+   * Should list all keys.
+   */
   it("should list all keys", async () => {
     const kv = mockKVNamespace();
     const keyA = randomSnakeCaseKey();
@@ -51,6 +80,9 @@ describe("mockKVNamespace basic", () => {
     expect(names).toContain(keyB);
   });
 
+  /**
+   * Should track calls with vi.fn().
+   */
   it("should track calls with vi.fn()", async () => {
     const kv = mockKVNamespace();
 
