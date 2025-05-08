@@ -17,6 +17,7 @@ export default [
       globals: {
         console: true,
         process: true,
+        Buffer: true, // <-- Add this line
       },
     },
     plugins: {

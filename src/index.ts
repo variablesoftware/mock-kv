@@ -1,13 +1,13 @@
 // --- Type imports ---
-import type { MockKVNamespace, KVEntry, KVMap } from "../types/MockKVNamespace";
+import type { MockKVNamespace, KVEntry, KVMap } from "./types/MockKVNamespace";
 
 // --- Runtime imports ---
 import { log } from "@variablesoftware/logface";
-import { clone } from "../utils/clone";
-import { getHandler } from "./methods/get";
-import { putHandler } from "./methods/put";
-import { deleteHandler } from "./methods/delete";
-import { listHandler } from "./methods/list";
+import { clone } from "./utils/clone";
+import { getHandler } from "./mockKVNamepsace/methods/get";
+import { putHandler } from "./mockKVNamepsace/methods/put";
+import { deleteHandler } from "./mockKVNamepsace/methods/delete";
+import { listHandler } from "./mockKVNamepsace/methods/list";
 
 export const mockKVNamespace = (data: KVMap = {}): MockKVNamespace & {
   dump: () => Record<string, KVEntry>;

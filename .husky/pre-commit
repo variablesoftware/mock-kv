@@ -1,2 +1,2 @@
-yarn lint
+yarn lint || exit 1
 gitleaks dir . || exit 1

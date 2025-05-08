@@ -1,2 +1,2 @@
-yarn test:build && yarn lint
+yarn build:test && yarn lint || exit 1
 gitleaks dir . || exit 1
