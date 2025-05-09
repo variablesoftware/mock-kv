@@ -57,7 +57,7 @@
         ":patch": "yarn version patch",
         ":minor": "yarn version minor",
         ":major": "yarn version major",
-        "release": "yarn clean && yarn build:release && git push && git push --tags && yarn npm publish --access public",
+        "release": "semantic-release",
         "release:dry": "yarn clean && yarn build:release && npm pack --dry-run"
     },
     "repository": {
@@ -80,6 +80,7 @@
         "prettier": "^3.5.3",
         "rollup": "^4.40.2",
         "rollup-plugin-typescript2": "^0.36.0",
+        "semantic-release": "^24.2.3",
         "terser": "^5.39.0",
         "typescript": "^5.8.3",
         "vitest": "^3.1.3"
