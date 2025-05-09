@@ -2,7 +2,7 @@
 
 [![Test Suite](https://img.shields.io/badge/tests-passing-brightgreen)](https://github.com/variablesoftware/mock-kv/actions)
 [![NPM version](https://img.shields.io/npm/v/@variablesoftware/mock-kv?style=flat-square)](https://www.npmjs.com/package/@variablesoftware/mock-kv)
-[![License](https://img.shields.io/github/license/variablesoftware/mock-kv?style=flat-square)](https://github.com/variablesoftware/mock-kv/blob/main/LICENSE)
+[![License](https://img.shields.io/github/license/variablesoftware/mock-kv?style=flat-square)](https://github.com/variablesoftware/mock-kv/blob/main/LICENSE.txt)
 
 **Mock Cloudflare KV Namespace for unit and integration testing**
 
