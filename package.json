@@ -1,12 +1,19 @@
 {
     "name": "@variablesoftware/mock-kv",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "description": "🎛️🏷️✨ Mock KV Namespace for testing Cloudflare Workers",
     "keywords": [
         "cloudflare",
+        "workers",
+        "serverless",
+        "storage",
+        "kv-namespace",
         "kv",
+        "local",
         "mock",
         "test",
+        "test-utils",
+        "devtools",
         "miniflare",
         "typescript"
     ],
@@ -15,7 +22,7 @@
         "email": "bunkcode@variablesoftware.com",
         "url": "https://github.com/variablesoftware"
     },
-    "main": "dist/index.js",
+    "main": "dist/index.min.js",
     "types": "dist/index.d.ts",
     "files": [
         "dist"
@@ -31,10 +38,10 @@
         "**/*.{ts,js,mjs,cts}": "eslint --fix"
     },
     "scripts": {
-        "build": "yarn rollup -c && yarn minify; ls -lah dist",
+        "build": "yarn rollup -c rollup.config.js",
         "prepare": "yarn husky install",
         "watch:build": "yarn rollup -c --watch",
-        "build:release": "yarn build",
+        "build:release": "yarn build; ls -la dist",
         "minify:options": "yarn terser --timings --compress --mangle --toplevel --source-map includeSources ",
         "minify": "yarn minify:options dist/*.js --output dist/index.min.js",
         "prebuild": "yarn clean",
@@ -87,6 +94,7 @@
         "husky": "^9.1.7",
         "prettier": "^3.5.3",
         "rollup": "^4.40.2",
+        "rollup-plugin-terser": "^7.0.2",
         "rollup-plugin-typescript2": "^0.36.0",
         "semantic-release": "^24.2.3",
         "terser": "^5.39.2",
