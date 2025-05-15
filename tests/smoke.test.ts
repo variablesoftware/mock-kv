@@ -10,7 +10,7 @@ function run(cmd, opts = {}) {
   return execSync(cmd, { stdio: 'inherit', ...opts });
 }
 
-const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'mock-d1-smoke-'));
+const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'mock-kv-smoke-'));
 const origCwd = process.cwd();
 
 test('npm package can be installed and imported (smoke test)', async () => {
