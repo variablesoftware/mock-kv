@@ -1,6 +1,6 @@
 {
     "name": "@variablesoftware/mock-kv",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "🎛️🏷️✨ Mock KV Namespace for testing Cloudflare Workers",
     "keywords": [
         "cloudflare",
@@ -58,6 +58,8 @@
         ":minor": "yarn version minor",
         ":major": "yarn version major",
         "release": "semantic-release",
+            "release2": "yarn clean && yarn build:release && git push && git push --tags && yarn npm publish --access public",
+    "release2:dry": "yarn clean && yarn build:release && npm pack --dry-run",
         "release:dry": "yarn clean && yarn build:release && npm pack --dry-run"
     },
     "repository": {
