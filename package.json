@@ -25,7 +25,9 @@
     "main": "dist/index.min.js",
     "types": "dist/index.d.ts",
     "files": [
-        "dist"
+        "dist",
+        "README.md",
+        "LICENSE.txt"
     ],
     "exports": {
         ".": {
