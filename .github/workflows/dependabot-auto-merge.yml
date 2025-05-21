@@ -29,6 +29,7 @@ jobs:
       - run: yarn lint
       - run: yarn build
       - run: yarn vitest
+      - run: echo ${PATH}
       
 
   # doesn't actually work, yet.
