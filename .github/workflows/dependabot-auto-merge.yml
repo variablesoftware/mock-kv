@@ -22,6 +22,8 @@ jobs:
         with:
           node-version: "lts/*"
           cache: "npm"
+        env:
+          SMOKE: 1
       - run: corepack enable && corepack prepare yarn@4.9.1 --activate
       - run: yarn install --immutable
       - run: yarn lint
@@ -68,3 +70,4 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.VS_NPM_TOKEN}}
           NPM_TOKEN: ${{ secrets.VS_NPM_TOKEN}}
           #YARN_NPM_CONFIG_PROVENANCE:
+          SMOKE: 1
