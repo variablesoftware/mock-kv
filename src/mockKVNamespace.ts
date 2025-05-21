@@ -35,7 +35,7 @@ export const mockKVNamespace = (data: KVMap = Object.create(null)): MockKVNamesp
   list: (_opts?: { limit?: number }) => Promise<{ keys: { name: string }[]; list_complete: boolean }>;
   expireKeyNow: (_key: string) => void;
 } => {
-  log.info("Creating mock KVNamespace");
+  log.debug("Creating mock KVNamespace");
   // Defensive: always use a clean object for data
   if (Object.getPrototypeOf(data) !== null) {
     data = Object.assign(Object.create(null), data);
