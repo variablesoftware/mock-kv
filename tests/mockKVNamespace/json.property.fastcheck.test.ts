@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { mockKVNamespace } from "../src/mockKVNamespace";
+import { mockKVNamespace } from "../../src/mockKVNamespace";
 import fc from "fast-check";
 
 // Arbitraries for deep/nested JSON and exotic keys

@@ -1,6 +1,6 @@
 // Extra edge-case and property-based tests for mockKVNamespace
 import { describe, it, expect } from "vitest";
-import { mockKVNamespace } from "../src/mockKVNamespace";
+import { mockKVNamespace } from "../../src/mockKVNamespace";
 import fc from "fast-check";
 
 describe("mockKVNamespace extra edge cases", () => {

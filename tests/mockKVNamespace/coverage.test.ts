@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { mockKVNamespace } from "../src/mockKVNamespace";
+import { mockKVNamespace } from "../../src/mockKVNamespace";
 
 // Test for defensive data normalization branch
 

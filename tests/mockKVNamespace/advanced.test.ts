@@ -11,8 +11,8 @@
  */
 
 import { describe, it, expect } from "vitest";
-import { mockKVNamespace } from "../src/mockKVNamespace";
-import { randomSnakeCaseKey, randomBase64Value, isDebug, isCI } from "./testUtils";
+import { mockKVNamespace } from "../../src/mockKVNamespace";
+import { randomSnakeCaseKey, randomBase64Value, isDebug, isCI } from "../testUtils";
 import fc from "fast-check";
 
 describe("mockKVNamespace advanced", () => {

@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
-import { mockKVNamespace } from "../src/mockKVNamespace";
+import { mockKVNamespace } from "../../src/mockKVNamespace";
 import fc from "fast-check";
-import { isDebug, isCI } from "./testUtils";
+import { isDebug, isCI } from "../testUtils";
 
 const safeUnicodeKeyArb = fc.string({ minLength: 1, maxLength: 64 });
 const safeUnicodeValueArb = fc.string({ minLength: 1, maxLength: 64 });
