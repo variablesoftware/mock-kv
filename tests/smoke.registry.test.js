@@ -13,7 +13,7 @@ function run(cmd, opts = {}) {
   return execSync(cmd, { stdio: 'inherit', ...opts });
 }
 
-const shouldRunSmoke = process.env.KV_SMOKE_REGISTRY === '1';
+const shouldRunSmoke = process.env.KV_SMOKE === '1';
 
 test.skipIf(!shouldRunSmoke)('npm package can be installed and imported from registry (smoke test)', async () => {
   // Use a temp directory for the test

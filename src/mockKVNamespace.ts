@@ -1,12 +1,22 @@
 // src/helpers/mockKVNamespace.ts
-import {log} from "@variablesoftware/logface"
 import type { MockKVNamespace, KVEntry, KVMap } from "./types/MockKVNamespace";
+import { log as baseLog } from '@variablesoftware/logface';
 import { listHandler } from "./mockKVNamespace/methods/list.js";
 import { getHandler } from "./mockKVNamespace/methods/get.js";
 import { putHandler } from "./mockKVNamespace/methods/put.js";
 import { deleteHandler } from "./mockKVNamespace/methods/delete.js";
 import { expireKeyNowHandler } from "./mockKVNamespace/methods/expireKeyNow.js";
 import { dumpHandler } from "./mockKVNamespace/methods/dump.js";
+
+const isDebug = process.env.DEBUG === '1';
+
+const log = {
+  ...baseLog,
+  debug: (...args: unknown[]) => {
+    if (isDebug) baseLog.debug(...args);
+  },
+};
+
 /**
  * Creates an in-memory mock implementation of the Cloudflare KVNamespace interface for use in tests.
  *
@@ -32,9 +42,8 @@ import { dumpHandler } from "./mockKVNamespace/methods/dump.js";
 export const mockKVNamespace = (data: KVMap = Object.create(null)): MockKVNamespace & {
   dump: () => Record<string, KVEntry>;
   list: (_opts?: { limit?: number }) => Promise<{ keys: { name: string }[]; list_complete: boolean }>;
-  expireKeyNow: (_key: string) => void;
+  expireKeyNow: (key: string) => void;
 } => {
-  log.debug("Creating mock KVNamespace");
   // Defensive: always use a clean object for data
   if (Object.getPrototypeOf(data) !== null) {
     data = Object.assign(Object.create(null), data);

@@ -1,8 +1,8 @@
 import type { KVMap } from '../../types/MockKVNamespace';
 import logface from '@variablesoftware/logface';
 
-export function expireKeyNowHandler(data: KVMap) {
-  return function(_key: string) {
+export function expireKeyNowHandler(data: KVMap): (key: string) => void {
+  return (_key: string) => {
     if (data[_key]) {
       logface.debug('expireKeyNow called', { key: _key });
       data[_key].expiresAt = Date.now() - 1000;
