@@ -12,9 +12,8 @@
 
 import { describe, it, expect } from "vitest";
 import { mockKVNamespace } from "../src/mockKVNamespace";
-import { randomSnakeCaseKey, randomBase64Value } from "./testUtils";
-
-process.env.LOG = 'none' || process.env.LOG;
+import { randomSnakeCaseKey, randomBase64Value, isDebug, isCI } from "./testUtils";
+import fc from "fast-check";
 
 describe("mockKVNamespace advanced", () => {
   /**
@@ -28,6 +27,21 @@ describe("mockKVNamespace advanced", () => {
     const finalValue = randomBase64Value();
     await kv.put(key, finalValue);
     expect(await kv.get(key)).toBe(finalValue);
+  });
+
+  it("should allow overwriting a key multiple times (fast-check)", async () => {
+    await fc.assert(
+      fc.asyncProperty(
+        fc.string({ minLength: 1, maxLength: 32 }),
+        fc.array(fc.string({ minLength: 1, maxLength: 32 }), { minLength: 2, maxLength: 6 }),
+        async (key, values) => {
+          const kv = mockKVNamespace();
+          for (const value of values) await kv.put(key, value);
+          expect(await kv.get(key)).toBe(values[values.length - 1]);
+        }
+      ),
+      { numRuns: 20 }
+    );
   });
 
   /**
@@ -50,6 +64,21 @@ describe("mockKVNamespace advanced", () => {
     expect(await kv.get(key)).toBe(value);
   });
 
+  it("should support unicode and special characters in keys/values (fast-check)", async () => {
+    await fc.assert(
+      fc.asyncProperty(
+        fc.string({ minLength: 1, maxLength: 16 }),
+        fc.string({ minLength: 1, maxLength: 16 }),
+        async (key, value) => {
+          const kv = mockKVNamespace();
+          await kv.put(key, value);
+          expect(await kv.get(key)).toBe(value);
+        }
+      ),
+      { numRuns: 20 }
+    );
+  });
+
   /**
    * Should not return expired keys in the list.
    */
@@ -64,6 +93,25 @@ describe("mockKVNamespace advanced", () => {
     const { keys } = await kv.list();
     expect(keys.map(k => k.name)).toContain(keepKey);
     expect(keys.map(k => k.name)).not.toContain(expireKey);
+  });
+
+  it("should not return expired keys in list (fast-check)", async () => {
+    await fc.assert(
+      fc.asyncProperty(
+        fc.string({ minLength: 1, maxLength: 16 }),
+        fc.string({ minLength: 1, maxLength: 16 }),
+        async (keepKey, expireKey) => {
+          if (keepKey === expireKey) return;
+          const kv = mockKVNamespace();
+          await kv.put(keepKey, "keep");
+          await kv.put(expireKey, "expire", { expiration: Math.floor(Date.now() / 1000) - 10 });
+          const { keys } = await kv.list();
+          expect(keys.map(k => k.name)).toContain(keepKey);
+          expect(keys.map(k => k.name)).not.toContain(expireKey);
+        }
+      ),
+      { numRuns: 20 }
+    );
   });
 
   /**

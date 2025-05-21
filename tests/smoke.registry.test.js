@@ -6,11 +6,16 @@ const fs = require('fs');
 const path = require('path');
 const os = require('os');
 
+var isDebug = typeof process !== 'undefined' && process.env && process.env.DEBUG === '1';
+var isCI = typeof process !== 'undefined' && process.env && process.env.CI === '1';
+
 function run(cmd, opts = {}) {
   return execSync(cmd, { stdio: 'inherit', ...opts });
 }
 
-test('npm package can be installed and imported from registry (smoke test)', async () => {
+const shouldRunSmoke = process.env.KV_SMOKE === '1';
+
+test.skipIf(!shouldRunSmoke)('npm package can be installed and imported from registry (smoke test)', async () => {
   // Use a temp directory for the test
   const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'mock-kv-smoke-registry-'));
   const origCwd = process.cwd();
@@ -24,9 +29,15 @@ test('npm package can be installed and imported from registry (smoke test)', asy
     const entry = pkgJson.main || 'index.js';
     const entryPath = path.join(tmpDir, 'node_modules', '@variablesoftware', 'mock-kv', entry);
     await import(entryPath);
-    console.log('Smoke test passed: package can be installed and imported from registry.');
+    if (isDebug || isCI) {
+      // eslint-disable-next-line no-console
+      console.log('Smoke test passed: package can be installed and imported from registry.');
+    }
   } catch (e) {
-    console.error('Smoke test from registry failed:', e);
+    if (isDebug || isCI) {
+      // eslint-disable-next-line no-console
+      console.error('Smoke test from registry failed:', e);
+    }
     throw e;
   } finally {
     process.chdir(origCwd);

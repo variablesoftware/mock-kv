@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { mockKVNamespace } from "../../src/mockKVNamespace";
-import { randomSnakeCaseKey, randomBase64Value } from "../testUtils";
+import { isDebug, isCI, randomSnakeCaseKey, randomBase64Value } from "../testUtils";
 
 describe("mockKVNamespace zero and negative TTL", () => {
   it("should immediately expire a key with TTL 0", async () => {

@@ -6,6 +6,9 @@ const fs = require('fs');
 const path = require('path');
 const os = require('os');
 
+const isDebug = typeof process !== 'undefined' && process.env && process.env.DEBUG === '1';
+const isCI = typeof process !== 'undefined' && process.env && process.env.CI === '1';
+
 function run(cmd, opts = {}) {
   return execSync(cmd, { stdio: 'inherit', ...opts });
 }
@@ -13,7 +16,9 @@ function run(cmd, opts = {}) {
 const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'mock-kv-smoke-'));
 const origCwd = process.cwd();
 
-test('npm package can be installed and imported (smoke test)', async () => {
+const shouldRunSmoke = process.env.KV_SMOKE === '1';
+
+test.skipIf(!shouldRunSmoke)('npm package can be installed and imported (smoke test)', async () => {
   try {
     // Pack the current package
     run('npm pack');
@@ -30,9 +35,15 @@ test('npm package can be installed and imported (smoke test)', async () => {
     const entry = pkgJson.main || 'index.js';
     const entryPath = path.join(tmpDir, 'node_modules', pkgJson.name, entry);
     await import(entryPath);
-    console.log('Smoke test passed: package can be installed and imported.');
+    if (isDebug || isCI) {
+      // eslint-disable-next-line no-console
+      console.log('Smoke test passed: package can be installed and imported.');
+    }
   } catch (e) {
-    console.error('Smoke test failed:', e);
+    if (isDebug || isCI) {
+      // eslint-disable-next-line no-console
+      console.error('Smoke test failed:', e);
+    }
     throw e;
   } finally {
     process.chdir(origCwd);

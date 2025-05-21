@@ -1,5 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { mockKVNamespace } from "../../src/mockKVNamespace";
+import { isDebug, isCI } from "../testUtils";
+
 import { randomSnakeCaseKey, randomBase64Value } from "../testUtils";
 
 describe("mockKVNamespace delete before expiration", () => {

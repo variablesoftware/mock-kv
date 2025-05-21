@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { mockKVNamespace } from "../../src/mockKVNamespace";
-import { randomSnakeCaseKey, randomBase64Value } from "../testUtils";
+import { isDebug, isCI, randomSnakeCaseKey, randomBase64Value } from "../testUtils";
 
 describe("mockKVNamespace overwrite expiration", () => {
   it("should update expiration when overwriting with new TTL", async () => {
