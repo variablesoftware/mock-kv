@@ -1,3 +1,12 @@
+# [0.2.0](https://github.com/variablesoftware/mock-kv/compare/v0.1.4...v0.2.0) (2025-05-22)
+
+
+### Features
+
+* 100% test coverage. feat: enhance putHandler to always store metadata, even if null, and update test imports to use index.js ([7aded5e](https://github.com/variablesoftware/mock-kv/commit/7aded5e6c2122bd04f8ea08a5b2d8d4b4547cf94))
+* add getWithMetadata functionality and enhance get/put methods with metadata support ([dbbeabe](https://github.com/variablesoftware/mock-kv/commit/dbbeabe4908d6f5c998a379cb5ebe4eb4d04ac93))
+* refactor mockKVNamespace implementation and enhance get/put methods with improved handling for metadata and edge cases ([1ee7c97](https://github.com/variablesoftware/mock-kv/commit/1ee7c973755ad0e227e9a0d707a2b99dff333090))
+
 # [0.1.0](https://github.com/variablesoftware/mock-kv/compare/v0.0.2...v0.1.0) (2025-05-09)
 
 
