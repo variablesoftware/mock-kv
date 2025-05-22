@@ -1,5 +1,4 @@
 import type { KVMap, KVEntry } from '../../types/MockKVNamespace';
-import { clone } from '../../utils/clone.js';
 import logface from '@variablesoftware/logface';
 
 /**
@@ -8,7 +7,7 @@ import logface from '@variablesoftware/logface';
 export function dumpHandler(data: KVMap): () => Record<string, KVEntry> {
   return () => {
     logface.debug('dump called');
-    const result = clone(data);
+    const result = structuredClone(data);
     logface.info('dump success', { keys: Object.keys(result) });
     return result;
   };

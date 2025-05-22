@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { getHandler } from '../../../src/mockKVNamespace/methods/get';
+import { getHandler } from '../../src/mockKVNamespace/methods/get';
 
 describe('getHandler (unit)', () => {
   it('returns null and deletes key if entry is missing', async () => {

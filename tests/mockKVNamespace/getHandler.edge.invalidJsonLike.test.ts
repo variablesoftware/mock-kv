@@ -1,17 +1,15 @@
-import { describe, it, expect } from 'vitest';
-import { getHandler } from '../../../src/mockKVNamespace/methods/get';
+import { describe, it, expect } from "vitest";
+import { mockKVNamespace } from "../../src";
 
-describe('getHandler edge: value looks like JSON but is invalid', () => {
-  it('returns null for value like {foo:bar}', async () => {
-    const data: any = { foo: { value: '{foo:bar}' } };
-    const get = getHandler(data);
-    const result = await get('foo', { type: 'json' });
-    expect(result).toBeNull();
+describe("getHandler edge: invalid JSON-like strings", () => {
+  it("should return null for invalid JSON string (object)", async () => {
+    const kv = mockKVNamespace();
+    await kv.put("badobj", "{foo:bar}");
+    expect(await kv.get("badobj", { type: "json" })).toBeNull();
   });
-  it('returns null for value like [1,2,]', async () => {
-    const data: any = { foo: { value: '[1,2,]' } };
-    const get = getHandler(data);
-    const result = await get('foo', { type: 'json' });
-    expect(result).toBeNull();
+  it("should return null for invalid JSON string (array)", async () => {
+    const kv = mockKVNamespace();
+    await kv.put("badarr", "[1,2,]");
+    expect(await kv.get("badarr", { type: "json" })).toBeNull();
   });
 });

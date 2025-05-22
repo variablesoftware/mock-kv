@@ -10,6 +10,7 @@ export function putHandler(data: KVMap) {
     value: string,
     opts?: { expirationTtl?: number; expiration?: number; metadata?: unknown }
   ) => {
+    key = String(key);
     const keyBytes = Buffer.byteLength(key, "utf8");
     const valueBytes = Buffer.byteLength(value, "utf8");
     if (keyBytes > MAX_KEY_BYTES) {

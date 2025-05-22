@@ -1,17 +1,23 @@
-import { describe, it, expect } from 'vitest';
-import { getHandler } from '../../../src/mockKVNamespace/methods/get';
+import { describe, it, expect } from "vitest";
+import { mockKVNamespace } from "../../src";
 
-describe('getHandler edge: value is undefined or null', () => {
-  it('returns undefined if value is undefined', async () => {
-    const data: any = { foo: { value: undefined } };
-    const get = getHandler(data);
-    const result = await get('foo');
-    expect(result).toBe(undefined);
+describe("getHandler edge: value null/undefined", () => {
+  it("should handle value = null", async () => {
+    const kv = mockKVNamespace();
+    const key = "foo";
+    (kv as any).dump()[key] = { value: null };
+    expect(await kv.get(key)).toBeNull();
   });
-  it('returns null if value is null', async () => {
-    const data: any = { foo: { value: null } };
-    const get = getHandler(data);
-    const result = await get('foo');
-    expect(result).toBe(null);
+  it("should handle value = undefined", async () => {
+    const kv = mockKVNamespace();
+    const key = "foo";
+    (kv as any).dump()[key] = { value: undefined };
+    expect(await kv.get(key)).toBeNull();
+  });
+  it("should handle value = '' (empty string)", async () => {
+    const kv = mockKVNamespace();
+    const key = "foo";
+    await kv.put(key, "");
+    expect(await kv.get(key)).toBe("");
   });
 });

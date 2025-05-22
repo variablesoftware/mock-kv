@@ -8,7 +8,7 @@
  */
 
 import { describe, it, expect } from "vitest";
-import { mockKVNamespace } from "../../src/mockKVNamespace";
+import { mockKVNamespace } from "../../src";
 import { randomSnakeCaseKey, randomBase64Value } from "../testUtils";
 
 describe("mockKVNamespace metadata", () => {
