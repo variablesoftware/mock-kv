@@ -25,6 +25,6 @@ export function getWithMetadataHandler(data: KVMap) {
         value = null;
       }
     }
-    return { value, metadata: (entry as any).metadata };
+    return { value, metadata: entry.metadata ?? null };
   };
 }
