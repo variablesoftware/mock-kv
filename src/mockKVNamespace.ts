@@ -7,6 +7,7 @@ import { putHandler } from "./mockKVNamespace/methods/put.js";
 import { deleteHandler } from "./mockKVNamespace/methods/delete.js";
 import { expireKeyNowHandler } from "./mockKVNamespace/methods/expireKeyNow.js";
 import { dumpHandler } from "./mockKVNamespace/methods/dump.js";
+import { getWithMetadataHandler } from "./mockKVNamespace/methods/getWithMetadata.js";
 
 /**
  * Creates an in-memory mock implementation of the Cloudflare KVNamespace interface for use in tests.
@@ -48,5 +49,6 @@ export const mockKVNamespace = (data: KVMap = Object.create(null)): MockKVNamesp
     list: listHandler(data),
     dump: dumpHandler(data),
     expireKeyNow: expireKeyNowHandler(data),
+    getWithMetadata: getWithMetadataHandler(data),
   };
 };

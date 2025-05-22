@@ -12,7 +12,7 @@
 
 import { describe, it, expect, vi } from "vitest";
 import { mockKVNamespace } from "../../src/mockKVNamespace";
-import { randomSnakeCaseKey, randomBase64Value, isDebug, isCI } from "../testUtils";
+import { randomSnakeCaseKey, randomBase64Value } from "../testUtils";
 
 describe("mockKVNamespace basic", () => {
   /**
@@ -101,5 +101,29 @@ describe("mockKVNamespace basic", () => {
     expect(kv.get).toHaveBeenCalledWith(key);
     expect(kv.delete).toHaveBeenCalledWith(key);
     expect(kv.list).toHaveBeenCalled();
+  });
+
+  /**
+   * Should return raw string when opts.type is 'text'.
+   */
+  it("should return raw string when opts.type is 'text'", async () => {
+    const kv = mockKVNamespace();
+    const key = randomSnakeCaseKey();
+    const value = randomBase64Value();
+    await kv.put(key, value);
+    const result = await kv.get(key, { type: "text" });
+    expect(result).toBe(value);
+  });
+
+  /**
+   * Should return raw string when opts.type is not specified.
+   */
+  it("should return raw string when opts.type is not specified", async () => {
+    const kv = mockKVNamespace();
+    const key = randomSnakeCaseKey();
+    const value = randomBase64Value();
+    await kv.put(key, value);
+    const result = await kv.get(key);
+    expect(result).toBe(value);
   });
 });

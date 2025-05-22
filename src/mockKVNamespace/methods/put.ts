@@ -8,7 +8,7 @@ export function putHandler(data: KVMap) {
   return async (
     key: string,
     value: string,
-    opts?: { expirationTtl?: number; expiration?: number }
+    opts?: { expirationTtl?: number; expiration?: number; metadata?: unknown }
   ) => {
     const keyBytes = Buffer.byteLength(key, "utf8");
     const valueBytes = Buffer.byteLength(value, "utf8");
@@ -26,13 +26,15 @@ export function putHandler(data: KVMap) {
       // Treat 0 or negative TTL as immediate expiration
       expiresAt = opts.expirationTtl > 0 ? now + opts.expirationTtl * 1000 : now - 1;
     }
-    data[key] = { value, expiresAt };
+    const metadata = opts?.metadata;
+    data[key] = metadata !== undefined ? { value, expiresAt, metadata } : { value, expiresAt };
     logface.debug(
-      'put("%s", "%s", ttl: %s, exp: %s)',
+      'put("%s", "%s", ttl: %s, exp: %s, meta: %s)',
       key,
       value,
       opts?.expirationTtl ?? "none",
       opts?.expiration ?? "none",
+      metadata !== undefined ? JSON.stringify(metadata) : "none",
     );
   };
 }

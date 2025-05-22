@@ -28,14 +28,16 @@ describe("mockKVNamespace property-based (step 5)", () => {
   it("should handle bulk put/get/delete (fast-check, step 5)", async () => {
     await fc.assert(
       fc.asyncProperty(safeArrayEntriesArb, async (entries) => {
+        // Filter to unique keys only (last value wins, to match put semantics)
+        const uniqueEntries = Array.from(new Map(entries.map(([k, v]) => [k, v])).entries());
         const kv = mockKVNamespace();
-        for (const [key, value] of entries) {
+        for (const [key, value] of uniqueEntries) {
           await kv.put(key, value);
         }
-        for (const [key, value] of entries) {
+        for (const [key, value] of uniqueEntries) {
           expect(await kv.get(key)).toBe(value);
         }
-        for (const [key] of entries) {
+        for (const [key] of uniqueEntries) {
           await kv.delete(key);
           expect(await kv.get(key)).toBeNull();
         }

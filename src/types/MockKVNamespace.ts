@@ -39,6 +39,17 @@ export type MockKVNamespace = {
   ) => Promise<string | Record<string, unknown> | unknown[] | null>;
 
   /**
+   * Retrieves a value and its metadata by key (Cloudflare-compatible).
+   * @param _key - The key to retrieve.
+   * @param _opts - Optional type hint for JSON parsing.
+   * @returns An object with value and metadata, or null if not found or expired.
+   */
+  getWithMetadata: (
+    _key: string,
+    _opts?: { type?: "text" | "json" }
+  ) => Promise<{ value: string | Record<string, unknown> | unknown[] | null, metadata: unknown } | null>;
+
+  /**
    * Deletes a key from the store.
    * @param _key - The key to delete.
    */
@@ -68,6 +79,8 @@ export type KVEntry = {
   value: string;
   /** Optional expiration time as a UNIX timestamp in milliseconds. */
   expiresAt?: number;
+  /** Optional metadata associated with the value. */
+  metadata?: unknown;
 };
 
 /**

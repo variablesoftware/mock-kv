@@ -19,8 +19,8 @@ export function getHandler(data: KVMap) {
       logface.debug('get("%s") → %s', key, raw);
       return raw;
     }
-    const isJsonKey = key === "json" || key.endsWith("-json");
-    if (opts?.type === "json" || isJsonKey) {
+    // Remove isJsonKey logic, always use opts.type for JSON
+    if (opts?.type === "json") {
       try {
         const parsed = JSON.parse(raw);
         logface.debug('get("%s") → parsed JSON', key);

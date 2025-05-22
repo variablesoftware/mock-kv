@@ -9,7 +9,7 @@
 
 import { describe, it, expect } from "vitest";
 import { mockKVNamespace } from "../../src/mockKVNamespace";
-import { randomSnakeCaseKey, randomBase64Value, isDebug, isCI } from "../testUtils";
+import { randomSnakeCaseKey, randomBase64Value } from "../testUtils";
 
 describe("mockKVNamespace metadata", () => {
   /**
@@ -21,13 +21,9 @@ describe("mockKVNamespace metadata", () => {
     const value = randomBase64Value();
     const meta = { foo: "bar", count: 42 };
     await kv.put(key, value, { metadata: meta });
-    // Assuming your get supports returning metadata, e.g. getWithMetadata
-    // If not, adapt this to your API
-    const result = await kv.get(key);
-    expect(result).toBe(value);
-    // If you have a getWithMetadata or similar:
-    // const { value, metadata } = await kv.getWithMetadata(key);
-    // expect(metadata).toEqual(meta);
+    // Test getWithMetadata returns both value and metadata
+    const result = await kv.getWithMetadata(key);
+    expect(result).toEqual({ value, metadata: meta });
   });
 
   /**
@@ -38,8 +34,8 @@ describe("mockKVNamespace metadata", () => {
     const key = randomSnakeCaseKey();
     await kv.put(key, randomBase64Value(), { metadata: { a: 1 } });
     await kv.put(key, randomBase64Value(), { metadata: { b: 2 } });
-    // const { metadata } = await kv.getWithMetadata(key);
-    // expect(metadata).toEqual({ b: 2 });
+    const result = await kv.getWithMetadata(key);
+    expect(result?.metadata).toEqual({ b: 2 });
   });
 
   /**
@@ -50,8 +46,54 @@ describe("mockKVNamespace metadata", () => {
     const key = randomSnakeCaseKey();
     await kv.put(key, randomBase64Value(), { metadata: { foo: "bar" } });
     await kv.delete(key);
-    // const result = await kv.getWithMetadata(key);
-    // expect(result).toBeNull();
+    const result = await kv.getWithMetadata(key);
+    expect(result).toBeNull();
+  });
+
+  it("should return null for missing key (getWithMetadata)", async () => {
+    const kv = mockKVNamespace();
+    const key = randomSnakeCaseKey();
+    const result = await kv.getWithMetadata(key);
+    expect(result).toBeNull();
+  });
+
+  it("should return null for expired key (getWithMetadata)", async () => {
+    const kv = mockKVNamespace();
+    const key = randomSnakeCaseKey();
+    await kv.put(key, randomBase64Value(), { expirationTtl: 0 });
+    // Wait a tick to ensure expiration
+    await new Promise(r => setTimeout(r, 2));
+    const result = await kv.getWithMetadata(key);
+    expect(result).toBeNull();
+  });
+
+  it("should return parsed JSON for valid JSON value (getWithMetadata)", async () => {
+    const kv = mockKVNamespace();
+    const key = randomSnakeCaseKey();
+    const meta = { foo: "bar" };
+    const obj = { a: 1, b: "x" };
+    await kv.put(key, JSON.stringify(obj), { metadata: meta });
+    const result = await kv.getWithMetadata(key, { type: "json" });
+    expect(result).toEqual({ value: obj, metadata: meta });
+  });
+
+  it("should return null for invalid JSON value (getWithMetadata)", async () => {
+    const kv = mockKVNamespace();
+    const key = randomSnakeCaseKey();
+    const meta = { foo: "bar" };
+    await kv.put(key, "not-json", { metadata: meta });
+    const result = await kv.getWithMetadata(key, { type: "json" });
+    expect(result).toEqual({ value: null, metadata: meta });
+  });
+
+  it("should return raw string for type 'text' or default (getWithMetadata)", async () => {
+    const kv = mockKVNamespace();
+    const key = randomSnakeCaseKey();
+    const meta = { foo: "bar" };
+    const value = "plain string";
+    await kv.put(key, value, { metadata: meta });
+    expect(await kv.getWithMetadata(key)).toEqual({ value, metadata: meta });
+    expect(await kv.getWithMetadata(key, { type: "text" })).toEqual({ value, metadata: meta });
   });
 
   // Add more as needed for your API!

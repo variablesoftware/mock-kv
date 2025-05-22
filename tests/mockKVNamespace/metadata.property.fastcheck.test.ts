@@ -8,16 +8,13 @@ describe("mockKVNamespace property-based metadata", () => {
       fc.asyncProperty(
         fc.string({ minLength: 1, maxLength: 32 }),
         fc.string({ minLength: 1, maxLength: 32 }),
-        fc.anything({ json: true }),
+        fc.anything(),
         async (key, value, meta) => {
           const kv = mockKVNamespace();
           await kv.put(key, value, { metadata: meta });
-          // If you have getWithMetadata, use it here
-          // const { value: v, metadata: m } = await kv.getWithMetadata(key);
-          // expect(v).toBe(value);
-          // expect(m).toEqual(meta);
-          // Otherwise, just check value
-          expect(await kv.get(key)).toBe(value);
+          const { value: v, metadata: m } = await kv.getWithMetadata(key) ?? {};
+          expect(v).toBe(value);
+          expect(m).toEqual(meta);
         }
       ),
       { numRuns: 20 }
@@ -29,15 +26,14 @@ describe("mockKVNamespace property-based metadata", () => {
       fc.asyncProperty(
         fc.string({ minLength: 1, maxLength: 32 }),
         fc.string({ minLength: 1, maxLength: 32 }),
-        fc.anything({ json: true }),
-        fc.anything({ json: true }),
+        fc.anything(),
+        fc.anything(),
         async (key, value, meta1, meta2) => {
           const kv = mockKVNamespace();
           await kv.put(key, value, { metadata: meta1 });
           await kv.put(key, value, { metadata: meta2 });
-          // If you have getWithMetadata, use it here
-          // const { metadata: m } = await kv.getWithMetadata(key);
-          // expect(m).toEqual(meta2);
+          const { metadata: m } = await kv.getWithMetadata(key) ?? {};
+          expect(m).toEqual(meta2);
         }
       ),
       { numRuns: 20 }

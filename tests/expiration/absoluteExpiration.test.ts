@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { mockKVNamespace } from "../../src/mockKVNamespace";
-import { isDebug, isCI, randomSnakeCaseKey, randomBase64Value } from "../testUtils";
+import { randomSnakeCaseKey, randomBase64Value } from "../testUtils";
 
 describe("mockKVNamespace absolute expiration", () => {
   it("should expire a key immediately if the expiration timestamp is in the past", async () => {
