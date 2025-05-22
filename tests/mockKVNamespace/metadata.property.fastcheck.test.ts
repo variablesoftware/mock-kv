@@ -12,9 +12,15 @@ describe("mockKVNamespace property-based metadata", () => {
         async (key, value, meta) => {
           const kv = mockKVNamespace();
           await kv.put(key, value, { metadata: meta });
+          let expected;
+          try {
+            expected = meta === undefined ? null : JSON.parse(JSON.stringify(meta));
+          } catch {
+            expected = null;
+          }
           const { value: v, metadata: m } = await kv.getWithMetadata(key) ?? {};
           expect(v).toBe(value);
-          expect(m).toEqual(meta);
+          expect(m).toEqual(expected);
         }
       ),
       { numRuns: 20 }
@@ -31,9 +37,15 @@ describe("mockKVNamespace property-based metadata", () => {
         async (key, value, meta1, meta2) => {
           const kv = mockKVNamespace();
           await kv.put(key, value, { metadata: meta1 });
+          let expected;
+          try {
+            expected = meta2 === undefined ? null : JSON.parse(JSON.stringify(meta2));
+          } catch {
+            expected = null;
+          }
           await kv.put(key, value, { metadata: meta2 });
           const { metadata: m } = await kv.getWithMetadata(key) ?? {};
-          expect(m).toEqual(meta2);
+          expect(m).toEqual(expected);
         }
       ),
       { numRuns: 20 }

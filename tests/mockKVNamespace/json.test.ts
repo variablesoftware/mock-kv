@@ -7,7 +7,7 @@
  */
 
 import { describe, it, expect } from "vitest";
-import { mockKVNamespace } from "../../src/mockKVNamespace";
+import { mockKVNamespace } from "../../src/index.js";
 import fc from "fast-check";
 import { isDebug, isCI } from "../testUtils";
 

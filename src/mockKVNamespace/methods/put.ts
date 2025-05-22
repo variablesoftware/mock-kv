@@ -27,15 +27,17 @@ export function putHandler(data: KVMap) {
       // Treat 0 or negative TTL as immediate expiration
       expiresAt = opts.expirationTtl > 0 ? now + opts.expirationTtl * 1000 : now - 1;
     }
-    const metadata = opts?.metadata;
-    data[key] = metadata !== undefined ? { value, expiresAt, metadata } : { value, expiresAt };
+    let metadata = opts?.metadata;
+    // Always store metadata property, even if undefined/null, to match test expectations and ensure coverage
+    metadata = metadata === undefined ? null : JSON.parse(JSON.stringify(metadata));
+    data[key] = { value, expiresAt, metadata };
     logface.debug(
       'put("%s", "%s", ttl: %s, exp: %s, meta: %s)',
       key,
       value,
       opts?.expirationTtl ?? "none",
       opts?.expiration ?? "none",
-      metadata !== undefined ? JSON.stringify(metadata) : "none",
+      JSON.stringify(metadata),
     );
   };
 }

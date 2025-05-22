@@ -1,5 +1,5 @@
-import { describe, it, expect } from "vitest";
-import { mockKVNamespace } from "../../src/mockKVNamespace";
+import { describe, it, expect } from 'vitest';
+import { mockKVNamespace } from '../../src/index.js';
 import { randomSnakeCaseKey, randomBase64Value } from "../testUtils";
 
 describe("mockKVNamespace absolute expiration", () => {

@@ -9,8 +9,8 @@
 
 import {log } from "@variablesoftware/logface";
 import { describe, it, expect } from "vitest";
-import { mockKVNamespace } from "../../src/mockKVNamespace";
-import { randomSnakeCaseKey, randomBase64Value, randomLength } from "../testUtils";
+import { mockKVNamespace } from "../../src/index.js";
+import { randomSnakeCaseKey, randomBase64Value } from "../testUtils";
 
 process.env.LOG = 'none' || process.env.LOG;
 

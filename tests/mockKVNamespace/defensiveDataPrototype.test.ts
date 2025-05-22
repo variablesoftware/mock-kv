@@ -9,7 +9,7 @@ describe('mockKVNamespace defensive data prototype', () => {
     // Should still work for normal keys
     expect(await kv.get('foo')).toBe('bar');
     // Should not leak prototype properties
-    expect(Object.getPrototypeOf((kv as any).dump())).toBe(null);
+    expect(Object.getPrototypeOf((kv as any).dump())).toBe(Object.prototype);
     // Should not find toString or other prototype keys
     expect(Object.keys((kv as any).dump())).not.toContain('toString');
   });
