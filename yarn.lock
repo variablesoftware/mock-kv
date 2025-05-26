@@ -1370,10 +1370,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@variablesoftware/logface@npm:^0.2.8":
-  version: 0.2.8
-  resolution: "@variablesoftware/logface@npm:0.2.8"
-  checksum: 10c0/687ed5c81ebbdf295637ad6086ba082b64b219babb6f31a90c75bb0abd109a36f46460bfff47ba3191d9041113ab1edb1d4616520e676eeab695f28e831d550e
+"@variablesoftware/logface@npm:^0.4.0":
+  version: 0.4.0
+  resolution: "@variablesoftware/logface@npm:0.4.0"
+  checksum: 10c0/c0e7bae7d912dd1ae3c62b2c6ccd90fcfb16146bdffee60ffef7fbb901270c5e901368925b18bdae44f386b4adeaf014873822d633b505d5979f829758a9a1d6
   languageName: node
   linkType: hard
 
@@ -1392,7 +1392,7 @@ __metadata:
     "@types/node": "npm:^22.15.21"
     "@typescript-eslint/eslint-plugin": "npm:^8.32.1"
     "@typescript-eslint/parser": "npm:^8.32.1"
-    "@variablesoftware/logface": "npm:^0.2.8"
+    "@variablesoftware/logface": "npm:^0.4.0"
     "@vitest/coverage-v8": "npm:^3.1.4"
     eslint: "npm:^9.27.0"
     eslint-config-prettier: "npm:^10.1.5"

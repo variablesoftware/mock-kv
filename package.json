@@ -104,6 +104,6 @@
     },
     "packageManager": "yarn@4.9.1",
     "dependencies": {
-        "@variablesoftware/logface": "^0.2.8"
+        "@variablesoftware/logface": "^0.4.0"
     }
 }
