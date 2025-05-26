@@ -3,6 +3,11 @@
 [![Test Suite](https://img.shields.io/badge/tests-passing-brightgreen)](https://github.com/variablesoftware/mock-kv/actions)
 [![NPM version](https://img.shields.io/npm/v/@variablesoftware/mock-kv?style=flat-square)](https://www.npmjs.com/package/@variablesoftware/mock-kv)
 [![License](https://img.shields.io/github/license/variablesoftware/mock-kv?style=flat-square)](https://github.com/variablesoftware/mock-kv/blob/main/LICENSE.txt)
+[![Coverage](https://img.shields.io/coveralls/github/variablesoftware/mock-kv/main)](https://coveralls.io/github/variablesoftware/mock-kv)
+[![Bundle Size](https://img.shields.io/bundlephobia/minzip/@variablesoftware/mock-kv)](https://bundlephobia.com/package/@variablesoftware/mock-kv)
+[![Downloads](https://img.shields.io/npm/dm/@variablesoftware/mock-kv)](https://www.npmjs.com/package/@variablesoftware/mock-kv)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/variablesoftware/mock-kv/pulls)
+
 
 **Mock Cloudflare KV Namespace for unit and integration testing**
 
