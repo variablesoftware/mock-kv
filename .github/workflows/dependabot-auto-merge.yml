@@ -23,8 +23,8 @@ jobs:
           node-version: "lts/*"
           cache: "npm"
         env:
-          D1_SMOKE: 1
-          D1_STRESS: 1
+          KV_SMOKE: 1
+          KV_STRESS: 1
           DEBUG: 1
       - run: corepack enable && corepack prepare yarn@4.9.1 --activate
       - run: which yarn node git
