@@ -47,6 +47,7 @@
         "minify:options": "yarn terser --timings --compress --mangle --toplevel --source-map includeSources ",
         "minify": "yarn minify:options dist/*.js --output dist/index.min.js",
         "prebuild": "yarn clean",
+        "prepack":"yarn build",
         "prepublishOnly": "yarn build:test",
         "clean": "rm -rf dist",
         "clean:all:tags": "rm -rf dist && git tag -d $(git tag)",
