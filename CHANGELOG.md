@@ -1,3 +1,10 @@
+## [0.2.1](https://github.com/variablesoftware/mock-kv/compare/v0.2.0...v0.2.1) (2025-05-29)
+
+
+### Bug Fixes
+
+* trigger release for test ([3c56f1d](https://github.com/variablesoftware/mock-kv/commit/3c56f1dd336c576afd3af5e7b1b03dfa36c35ea8))
+
 # [0.2.0](https://github.com/variablesoftware/mock-kv/compare/v0.1.4...v0.2.0) (2025-05-22)
 
 
