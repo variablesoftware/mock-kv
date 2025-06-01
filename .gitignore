@@ -3,11 +3,6 @@
 # tarball builds
 *.tgz
 
-# pnpm store
-.pnpm-store/
-# pnpm lockfile
-pnpm-lock.yaml
-
 # Node dependencies
 node_modules/
 
