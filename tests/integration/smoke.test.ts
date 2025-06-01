@@ -27,8 +27,8 @@ test.skipIf(!shouldRunSmoke)('npm package can be installed and imported (smoke t
 
     // Init a new project in the temp dir
     process.chdir(tmpDir);
-    run('npm init -y');
-    run(`npm install ${path.join(origCwd, pkg)}`);
+    run('pnpm init -y');
+    run(`pnpm add ${path.join(origCwd, pkg)}`);
 
     // Try to import the package
     const pkgJson = require(path.join(origCwd, 'package.json'));

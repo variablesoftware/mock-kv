@@ -21,9 +21,9 @@ test.skipIf(!shouldRunSmoke)('npm package can be installed and imported from reg
   const origCwd = process.cwd();
   try {
     process.chdir(tmpDir);
-    run('npm init -y');
+    run('pnpm init -y');
     // Install the package from the registry (latest version)
-    run('npm install @variablesoftware/mock-kv');
+    run('pnpm add @variablesoftware/mock-kv');
     // Read the installed package's package.json to find the entry point
     const pkgJson = require(path.join(tmpDir, 'node_modules', '@variablesoftware', 'mock-kv', 'package.json'));
     const entry = pkgJson.main || 'index.js';
