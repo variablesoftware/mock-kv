@@ -1,3 +1,10 @@
+## [0.2.2](https://github.com/variablesoftware/mock-kv/compare/v0.2.1...v0.2.2) (2025-06-01)
+
+
+### Bug Fixes
+
+* lock file. Remove Rollup configuration file (rollup.config.js) as part of project restructuring. ([398a3bc](https://github.com/variablesoftware/mock-kv/commit/398a3bcdc3d2db7d08dfcb23880187f70553ec44))
+
 ## [0.2.1](https://github.com/variablesoftware/mock-kv/compare/v0.2.0...v0.2.1) (2025-05-29)
 
 
