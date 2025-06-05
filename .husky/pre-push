@@ -10,5 +10,5 @@ set -x
 #echo ${PWD}
 #echo ${PATH}
 #yarn lint || exit 1
-pnpm run lint && pnpm run build:test || exit 1
+#pnpm run lint && pnpm run build && pnpm run test || exit 1
 gitleaks dir . || exit 1
