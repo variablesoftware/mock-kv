@@ -39,8 +39,8 @@ on:
 jobs:
   call-auto-merge:
     # uses: ./.github/workflows/auto-merge.yml
-    uses: variablesoftware/github-workflows/.github/workflows/auto-merge.yml@main
-    # uses: variablesoftware/github-workflows/.github/workflows/auto-merge.yml@v1
+    # uses: variablesoftware/github-workflows/.github/workflows/auto-merge.yml@main
+    uses: variablesoftware/github-workflows/.github/workflows/auto-merge.yml@v1.0.1
     # uses: variablesoftware/github-workflows/.github/workflows/auto-merge.yml@38038641148ab8eaa7c9be80d9041a6c8c80641e
     # secrets:
     #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
