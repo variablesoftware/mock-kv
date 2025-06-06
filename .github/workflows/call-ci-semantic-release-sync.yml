@@ -5,6 +5,7 @@ env:
   RUN_BUILD: 1
   RUN_LINT: 1
   NODE_AUTH_TOKEN: ${{ secrets.VS_NPM_TOKEN }}
+  HUSKY: 0
   
 on:
   workflow_dispatch:
