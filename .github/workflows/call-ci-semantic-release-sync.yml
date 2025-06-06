@@ -4,7 +4,8 @@ env:
   RUN_TEST: 1
   RUN_BUILD: 1
   RUN_LINT: 1
-
+  NODE_AUTH_TOKEN: ${{ secrets.VS_NPM_TOKEN }}
+  
 on:
   workflow_dispatch:
 
