@@ -6,7 +6,7 @@ env:
   RUN_LINT: 1
   NODE_AUTH_TOKEN: ${{ secrets.VS_NPM_TOKEN }}
   HUSKY: 0
-  
+
 on:
   workflow_dispatch:
 
@@ -37,6 +37,10 @@ on:
       - 'renovate/**'
       - 'chore/**'
       - 'test/**'
+
+concurrency:
+  group: call-ci-release-sync-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   call-ci-release-sync:

@@ -36,6 +36,10 @@ on:
       - 'chore/**'
       - 'test/**'
 
+concurrency:
+  group: call-auto-merge-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   call-auto-merge:
     # uses: ./.github/workflows/auto-merge.yml
