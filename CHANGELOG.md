@@ -1,3 +1,5 @@
+## [0.3.8](https://github.com/variablesoftware/mock-kv/compare/v0.3.7...v0.3.8) (2025-06-07)
+
 ## [0.3.7](https://github.com/variablesoftware/mock-kv/compare/v0.3.6...v0.3.7) (2025-06-07)
 
 ## [0.3.6](https://github.com/variablesoftware/mock-kv/compare/v0.3.5...v0.3.6) (2025-06-07)
