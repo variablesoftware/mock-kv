@@ -1,9 +1,6 @@
 env:
   ACTIONS_STEP_DEBUG: true
   ACTIONS_RUNNER_DEBUG: true
-  RUN_TEST: 1
-  RUN_BUILD: 1
-  RUN_LINT: 1
 
 on:
   workflow_dispatch:
@@ -51,4 +48,5 @@ jobs:
       RUN_LINT: 1
       RUN_BUILD: 1
       RUN_TEST: 1
+      RUN_RELEASE: 1
         
