@@ -104,6 +104,6 @@
         "vitest": "^3.2.2"
     },
     "dependencies": {
-        "@variablesoftware/logface": "^0.5.2"
+        "@variablesoftware/logface": "^0.6.0"
     }
 }
