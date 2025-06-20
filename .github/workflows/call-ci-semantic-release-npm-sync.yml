@@ -1,3 +1,5 @@
+name: CI Semantic Release NPM Sync
+
 env:
   ACTIONS_STEP_DEBUG: true
   ACTIONS_RUNNER_DEBUG: true
@@ -49,4 +51,3 @@ jobs:
       RUN_BUILD: 1
       RUN_TEST: 1
       RUN_RELEASE: 1
-        
