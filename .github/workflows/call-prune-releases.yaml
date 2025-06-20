@@ -1,3 +1,5 @@
+name: Prune Old Releases
+
 on:
   workflow_dispatch:
 
