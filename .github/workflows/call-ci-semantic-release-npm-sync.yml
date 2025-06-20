@@ -1,4 +1,4 @@
-name: CI Semantic Release NPM Sync
+name: Call CI Semantic Release NPM Sync
 
 env:
   ACTIONS_STEP_DEBUG: true

@@ -1,4 +1,4 @@
-name: Auto Merge
+name: Call Auto Merge
 
 env:
   ACTIONS_STEP_DEBUG: true
