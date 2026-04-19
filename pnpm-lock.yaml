@@ -55,8 +55,8 @@ importers:
         specifier: ^10.1.8
         version: 10.1.8(eslint@10.2.1)
       fast-check:
-        specifier: ^4.6.0
-        version: 4.6.0
+        specifier: ^4.7.0
+        version: 4.7.0
       husky:
         specifier: ^9.1.7
         version: 9.1.7
@@ -1152,8 +1152,8 @@ packages:
     resolution: {integrity: sha512-JhFGDVJ7tmDJItKhYgJCGLOWjuK9vPxiXoUFLwLDc99NlmklilbiQJwoctZtt13+xMw91MCk/REan6MWHqDjyA==}
     engines: {node: '>=12.0.0'}
 
-  fast-check@4.6.0:
-    resolution: {integrity: sha512-h7H6Dm0Fy+H4ciQYFxFjXnXkzR2kr9Fb22c0UBpHnm59K2zpr2t13aPTHlltFiNT6zuxp6HMPAVVvgur4BLdpA==}
+  fast-check@4.7.0:
+    resolution: {integrity: sha512-NsZRtqvSSoCP0HbNjUD+r1JH8zqZalyp6gLY9e7OYs7NK9b6AHOs2baBFeBG7bVNsuoukh89x2Yg3rPsul8ziQ==}
     engines: {node: '>=12.17.0'}
 
   fast-content-type-parse@3.0.0:
@@ -1911,8 +1911,8 @@ packages:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
     engines: {node: '>=6'}
 
-  pure-rand@8.0.0:
-    resolution: {integrity: sha512-7rgWlxG2gAvFPIQfUreo1XYlNvrQ9VnQPFWdncPkdl3icucLK0InOxsaafbvxGTnI6Bk/Rxmslg0lQlRCuzOXw==}
+  pure-rand@8.4.0:
+    resolution: {integrity: sha512-IoM8YF/jY0hiugFo/wOWqfmarlE6J0wc6fDK1PhftMk7MGhVZl88sZimmqBBFomLOCSmcCCpsfj7wXASCpvK9A==}
 
   rc@1.2.8:
     resolution: {integrity: sha512-y3bGgqKj3QBdxLbLkomlohkvsA8gdAiUQlSBJnBhfn+BPxg4bc62d8TcBW15wavDfgexCgccckhcZvywyQYPOw==}
@@ -3499,9 +3499,9 @@ snapshots:
 
   expect-type@1.2.2: {}
 
-  fast-check@4.6.0:
+  fast-check@4.7.0:
     dependencies:
-      pure-rand: 8.0.0
+      pure-rand: 8.4.0
 
   fast-content-type-parse@3.0.0: {}
 
@@ -4107,7 +4107,7 @@ snapshots:
 
   punycode@2.3.1: {}
 
-  pure-rand@8.0.0: {}
+  pure-rand@8.4.0: {}
 
   rc@1.2.8:
     dependencies:
