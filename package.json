@@ -101,7 +101,7 @@
         "terser": "^5.46.2",
         "tslib": "^2.8.1",
         "typescript": "^5.9.3",
-        "vitest": "^3.2.4"
+        "vitest": "^4.1.0"
     },
     "dependencies": {
         "@variablesoftware/logface": "^0.7.3"
